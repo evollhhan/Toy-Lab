@@ -42,28 +42,10 @@ function Halo(Draw) {
     renderer.setClearColor( 0xfcfcfc );
     renderer.setSize( window.innerWidth, window.innerHeight );
 
-    function render() {
-        cameraControls.update();
-        camera.updateProjectionMatrix();
-        camera.lookAt( scene.position );
-        renderer.render( scene, camera );
-    }
-
-    function renderAnimate() {
-        cameraControls.update();
-        groundMirror.renderWithMirror( verticalMirror );
-        verticalMirror.renderWithMirror( groundMirror );
-        // var timer = Date.now() * 0.0001;
-		// camera.position.x = Math.cos( timer ) * 200;
-		// camera.position.z = Math.sin( timer ) * 200;
-        camera.lookAt( scene.position );
-        renderer.render( scene, camera );       
-    }
-
     /**
      * Init Camera ( PerspectiveCamera )
     */     
-    camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 1, 1000 );
+    camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 1, 2000 );
     // camera.target = new THREE.Vector3( 0, 0, 0 );
     camera.position.set( 0, 75, 160 );
 
@@ -80,7 +62,7 @@ function Halo(Draw) {
      */
     cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
     cameraControls.target.set( 0, 0, 0);
-    cameraControls.maxDistance = 400;
+    cameraControls.maxDistance = 1000;
     cameraControls.minDistance = 100;
     cameraControls.update(); 
 
@@ -118,6 +100,27 @@ function Halo(Draw) {
     window.addEventListener( 'resize', onWindowResize, false );
 
     /**
+     * Render Events
+     */
+    function render() {
+        cameraControls.update();
+        camera.updateProjectionMatrix();
+        camera.lookAt( scene.position );
+        renderer.render( scene, camera );
+    }
+
+    function renderAnimate() {
+        cameraControls.update();
+        groundMirror.renderWithMirror( verticalMirror );
+        // verticalMirror.renderWithMirror( groundMirror );
+        // var timer = Date.now() * 0.0001;
+		// camera.position.x = Math.cos( timer ) * 200;
+		// camera.position.z = Math.sin( timer ) * 200;
+        camera.lookAt( scene.position );
+        renderer.render( scene, camera );       
+    }
+
+    /**
      * Animate Events
      */
     function animate() {
@@ -136,7 +139,7 @@ function Halo(Draw) {
 
         run: function() {
             var core = new Core(scene);
-            core.Draw();
+            core.Draw(DRAWDATA);
             core.Light();
             animate();
         },
