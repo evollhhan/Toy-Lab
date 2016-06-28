@@ -20,7 +20,7 @@
             z-index: 999;
             padding: 10px 20px;
             width: 200px;
-            height: 200px;
+            height: 240px;
             background: #000;
             color: #fff;
             border-radius: 0 0 8px 0;
@@ -28,17 +28,37 @@
         input {
             vertical-align: middle;
         }
+        input[type=text] {
+            font-size: 12px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            padding: 4px;
+            outline: none;
+        }
+        #obj_i {
+            width: 140px;
+        }
     </style>
 </head>
 
 <body onload="init()">
     
-    <!--<div class="devControl">
+    <div class="devControl">
         <p>cam_x: <input id="cam_x" type="range" value="100" min="0" max="1000" step="10"></p>
         <p>cam_y: <input id="cam_y" type="range" value="100" min="0" max="1000" step="10"></p>
         <p>cam_z: <input id="cam_z" type="range" value="100" min="0" max="1000" step="10"></p>
         <p>play: <input id="play" type="checkbox"></p>
-    </div>-->
+        <p>
+            <select id="obj_s">
+                <option value="1">N1</option>
+                <option value="2">N2</option>
+                <option value="3">N3</option>
+            </select>
+            <input id="obj_i" type="text">
+        </p>
+        <p><input id="obj_c" type="button" value="Make">
+            <input id="obj_z" type="button" value="Undo"></p>
+    </div>
 
     <canvas id="stage">
 

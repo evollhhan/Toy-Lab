@@ -1,31 +1,34 @@
 var DRAWDATA = {
 
-    // Grid: {
-    //     size: 500,
-    //     step: 50
-    // },
+    Grid: {
+        size: 500,
+        step: 50
+    },
 
     /**
      * N1 Data
-     * [width, height, depth, radius, x, y]
+     * [width, height, depth, radius, x, y, degree]
      */
     N1: [
-        [8, 8, 40, 1, 0, 0]
+        // district 1
+        
     ],
 
     /**
      * N2 Data
-     * [width, height, depth, x, y]
+     * [width, height, depth, x, y, degree]
      */
     N2: [
-        [16, 24, 40, -24, -8]
+        // district 1
+        
     ],
 
     /**
      * N3 Data
-     * [width, height, curveInner, curveOuter, x, y]
+     * [width, height, depth, curveInner, curveOuter, x, y, degree]
      */
     N3: [
-        [32, 16, 4, 4, -12, -20]
+        // district 1
+        
     ]
 }

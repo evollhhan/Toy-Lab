@@ -4,8 +4,16 @@ var PI = Math.PI,
 
     };
 
-function Core(scene) {
+function Core(scene, camera) {
 
     this.scene = scene;
+
+    this.camera = camera;
+
+}
+
+function D2R(degree) {
+
+    return degree / 180 * PI;
 
 }

@@ -37,7 +37,7 @@ Core.prototype.Draw = function(list) {
      * 
      **/ 
     var City = new THREE.Group();
-    material = new THREE.MeshLambertMaterial( { color: 0xcccccc , side: THREE.DoubleSide });
+    material = new THREE.MeshLambertMaterial( { color: 0x94bece , side: THREE.DoubleSide });
 
     // normal 1
     if( list.N1 ) {        
@@ -66,7 +66,9 @@ Core.prototype.Draw = function(list) {
             });
             mesh = new THREE.Mesh( geometry, material );
             mesh.position.set( list.N1[i][4], 1 + ELEVATION, list.N1[i][5] );
-            mesh.rotation.set( - PI / 2, 0, 0 );
+            mesh.rotation.set( - PI / 2, 0, D2R(list.N1[i][6]) );
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
             City.add( mesh );
         }
     }
@@ -78,7 +80,9 @@ Core.prototype.Draw = function(list) {
             geometry = new THREE.BoxBufferGeometry( list.N2[i][0], list.N2[i][1], list.N2[i][2] );
             mesh = new THREE.Mesh( geometry, material );
             mesh.position.set( list.N2[i][3], list.N2[i][2] / 2 + ELEVATION, list.N2[i][4] );
-            mesh.rotation.set( - PI / 2, 0, 0 );
+            mesh.rotation.set( - PI / 2, 0, D2R(list.N2[i][5]) );
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
             City.add( mesh );
         }
     }
@@ -96,17 +100,19 @@ Core.prototype.Draw = function(list) {
         len = list.N3.length;
         for( i = 0; i < len; i++ ) {
             shape = new THREE.Shape();
-            drawN3( shape, list.N3[i][0], list.N3[i][1], list.N3[i][2], list.N3[i][3] );
+            drawN3( shape, list.N3[i][0], list.N3[i][1], list.N3[i][3], list.N3[i][4] );
             geometry = new THREE.ExtrudeGeometry( shape, {
-                amount: 100,
+                amount: list.N3[i][2],
                 bevelEnabled: true,
                 bevelThickness: 1,
                 bevelSize: 0,
                 steps: 1
             });
             mesh = new THREE.Mesh( geometry, material );
-            mesh.position.set( list.N3[i][4], 1 + ELEVATION, list.N3[i][5] );
-            mesh.rotation.set( - PI / 2, 0, 0 );
+            mesh.position.set( list.N3[i][5], 1 + ELEVATION, list.N3[i][6] );
+            mesh.rotation.set( - PI / 2, 0, D2R(list.N3[i][7]) );
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
             City.add( mesh );
         }
     }
@@ -162,9 +168,11 @@ Core.prototype.Draw = function(list) {
         bevelSize: 0,
         steps: 1
     });
+    material = new THREE.MeshLambertMaterial( { color: 0xc6c6c6 , side: THREE.DoubleSide });
     mesh = new THREE.Mesh( geometry, material );
     mesh.position.set( -400, 2, -500 );
     mesh.rotation.set( PI / 2, 0, 0 );
+    mesh.receiveShadow = true;
     City.add( mesh );
 
     // Excute

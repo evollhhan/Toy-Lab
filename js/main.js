@@ -39,13 +39,17 @@ function Halo(Draw) {
         canvas: stage,
         antialias: true
     });
-    renderer.setClearColor( 0xfcfcfc );
+    renderer.setClearColor( 0xffffff );
     renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.gammaInput = true;
+    renderer.gammaOutput = true;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     /**
      * Init Camera ( PerspectiveCamera )
     */     
-    camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 1, 2000 );
+    camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 1, 10000 );
     // camera.target = new THREE.Vector3( 0, 0, 0 );
     camera.position.set( 0, 75, 160 );
 
@@ -62,7 +66,7 @@ function Halo(Draw) {
      */
     cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
     cameraControls.target.set( 0, 0, 0);
-    cameraControls.maxDistance = 1000;
+    cameraControls.maxDistance = 10000;
     cameraControls.minDistance = 100;
     cameraControls.update(); 
 
@@ -72,13 +76,13 @@ function Halo(Draw) {
     var planeGeo = new THREE.PlaneBufferGeometry( 1000, 1000 );
     
     // MIRROR planes
-    groundMirror = new THREE.Mirror( renderer, camera, { clipBias: 0.003, textureWidth: window.innerWidth, textureHeight: window.innerHeight, color: 0xcccccc } );
+    groundMirror = new THREE.Mirror( renderer, camera, { clipBias: 0.003, textureWidth: window.innerWidth, textureHeight: window.innerHeight, color: 0xebebeb } );
     var mirrorMesh = new THREE.Mesh( planeGeo, groundMirror.material );
     mirrorMesh.add( groundMirror );
     mirrorMesh.rotateX( - Math.PI / 2 );
-    scene.add( mirrorMesh )
+    // scene.add( mirrorMesh )
 
-    verticalMirror = new THREE.Mirror( renderer, camera, { clipBias: 0.003, textureWidth: window.innerWidth, textureHeight: window.innerHeight, color:0xff3333 } );
+    verticalMirror = new THREE.Mirror( renderer, camera, { clipBias: 0.003, textureWidth: window.innerWidth, textureHeight: window.innerHeight, color:0xebebeb } );
     // var verticalMirrorMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 60, 60 ), verticalMirror.material );
     // verticalMirrorMesh.add( verticalMirror );
     // verticalMirrorMesh.position.y = 35;
@@ -111,7 +115,7 @@ function Halo(Draw) {
 
     function renderAnimate() {
         cameraControls.update();
-        groundMirror.renderWithMirror( verticalMirror );
+        // groundMirror.renderWithMirror( verticalMirror );
         // verticalMirror.renderWithMirror( groundMirror );
         // var timer = Date.now() * 0.0001;
 		// camera.position.x = Math.cos( timer ) * 200;
@@ -132,13 +136,15 @@ function Halo(Draw) {
         cancelAnimationFrame( playId );
     }
 
+    window.scene = scene;
+
     /**
      * Export Public Methods
      */
     return {
 
         run: function() {
-            var core = new Core(scene);
+            window.core = new Core(scene, camera);
             core.Draw(DRAWDATA);
             core.Light();
             animate();
@@ -167,6 +173,36 @@ function Halo(Draw) {
                     else cancelAnimate();
                 }
                 play.addEventListener('change', playControl);
+            },
+
+            // maker
+            Maker: function() {
+                document.querySelector('#obj_c').addEventListener('click', function(){
+                    scene.children = [];
+                    var d = eval('[' + document.querySelector('#obj_i').value + ']');
+                    console.info( d );
+                    switch( document.querySelector('#obj_s').value ) {
+                        case '1': DRAWDATA.N1.push(d);break;
+                        case '2': DRAWDATA.N2.push(d);break;
+                        case '3': DRAWDATA.N3.push(d);break;
+                        default:break;
+                    }            
+                    core.Draw(DRAWDATA);
+                    core.Light();
+                    console.info( DRAWDATA );
+                });
+                document.querySelector('#obj_z').addEventListener('click', function(){
+                    scene.children = [];
+                    switch( document.querySelector('#obj_s').value ) {
+                        case '1': DRAWDATA.N1.pop();break;
+                        case '2': DRAWDATA.N2.pop();break;
+                        case '3': DRAWDATA.N3.pop();break;
+                        default:break;
+                    }            
+                    core.Draw(DRAWDATA);
+                    core.Light();   
+                    console.info( DRAWDATA );                 
+                });
             }
         }
     }
@@ -181,6 +217,7 @@ function init() {
 
     // main.devControl.ChangeCam();
     // main.devControl.Play();
+    main.devControl.Maker();
 }
 
 
