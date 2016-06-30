@@ -39,7 +39,7 @@ function Halo(Draw) {
         canvas: stage,
         antialias: true
     });
-    renderer.setClearColor( 0xffffff );
+    renderer.setClearColor( 0xfcfcfc );
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
@@ -80,7 +80,7 @@ function Halo(Draw) {
     var mirrorMesh = new THREE.Mesh( planeGeo, groundMirror.material );
     mirrorMesh.add( groundMirror );
     mirrorMesh.rotateX( - Math.PI / 2 );
-    // scene.add( mirrorMesh )
+    scene.add( mirrorMesh )
 
     verticalMirror = new THREE.Mirror( renderer, camera, { clipBias: 0.003, textureWidth: window.innerWidth, textureHeight: window.innerHeight, color:0xebebeb } );
     // var verticalMirrorMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 60, 60 ), verticalMirror.material );
@@ -115,7 +115,7 @@ function Halo(Draw) {
 
     function renderAnimate() {
         cameraControls.update();
-        // groundMirror.renderWithMirror( verticalMirror );
+        groundMirror.renderWithMirror( verticalMirror );
         // verticalMirror.renderWithMirror( groundMirror );
         // var timer = Date.now() * 0.0001;
 		// camera.position.x = Math.cos( timer ) * 200;
@@ -179,7 +179,7 @@ function Halo(Draw) {
             Maker: function() {
                 document.querySelector('#obj_c').addEventListener('click', function(){
                     scene.children = [];
-                    var d = eval('[' + document.querySelector('#obj_i').value + ']');
+                    var d = eval('[' + document.querySelector('#obj_i').value + ',0,"test"]');
                     console.info( d );
                     switch( document.querySelector('#obj_s').value ) {
                         case '1': DRAWDATA.N1.push(d);break;

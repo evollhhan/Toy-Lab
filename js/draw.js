@@ -65,10 +65,11 @@ Core.prototype.Draw = function(list) {
                 steps: 1
             });
             mesh = new THREE.Mesh( geometry, material );
-            mesh.position.set( list.N1[i][4], 1 + ELEVATION, list.N1[i][5] );
+            mesh.position.set( list.N1[i][4], 1 + ELEVATION + list.N1[i][7], list.N1[i][5] );
             mesh.rotation.set( - PI / 2, 0, D2R(list.N1[i][6]) );
             mesh.castShadow = true;
             mesh.receiveShadow = true;
+            mesh.name = list.N1[i][8];
             City.add( mesh );
         }
     }
@@ -79,10 +80,11 @@ Core.prototype.Draw = function(list) {
         for( i = 0; i < len; i++ ) {
             geometry = new THREE.BoxBufferGeometry( list.N2[i][0], list.N2[i][1], list.N2[i][2] );
             mesh = new THREE.Mesh( geometry, material );
-            mesh.position.set( list.N2[i][3], list.N2[i][2] / 2 + ELEVATION, list.N2[i][4] );
+            mesh.position.set( list.N2[i][3], list.N2[i][2] / 2 + ELEVATION + list.N2[i][6], list.N2[i][4] );
             mesh.rotation.set( - PI / 2, 0, D2R(list.N2[i][5]) );
             mesh.castShadow = true;
             mesh.receiveShadow = true;
+            mesh.name = list.N2[i][7];
             City.add( mesh );
         }
     }
@@ -109,10 +111,11 @@ Core.prototype.Draw = function(list) {
                 steps: 1
             });
             mesh = new THREE.Mesh( geometry, material );
-            mesh.position.set( list.N3[i][5], 1 + ELEVATION, list.N3[i][6] );
+            mesh.position.set( list.N3[i][5], 1 + ELEVATION + list.N3[i][8], list.N3[i][6] );
             mesh.rotation.set( - PI / 2, 0, D2R(list.N3[i][7]) );
             mesh.castShadow = true;
             mesh.receiveShadow = true;
+            mesh.name = list.N3[i][9];
             City.add( mesh );
         }
     }
@@ -157,7 +160,7 @@ Core.prototype.Draw = function(list) {
         ctx.bezierCurveTo(506.838,682.099,508.3043,680.434,520.951,684.310);
         ctx.bezierCurveTo(555.702,694.957,589.296,708.754,622.906,722.48);
         ctx.bezierCurveTo(644.898,731.462,642.81,729.684,625.538,743.837);
-        ctx.closePath()
+        ctx.closePath();
     }
     shape = new THREE.Shape();
     drawLand( shape );
@@ -173,6 +176,33 @@ Core.prototype.Draw = function(list) {
     mesh.position.set( -400, 2, -500 );
     mesh.rotation.set( PI / 2, 0, 0 );
     mesh.receiveShadow = true;
+    City.add( mesh );
+
+    /**
+     *  Road
+     * 
+     *  !! The Road Path Data is made in AI-SVG and converted.
+     *  !! Dont modified these path data unless the land was redesigned.
+     **/ 
+    var loader = new THREE.TextureLoader();
+    var texture = loader.load( '../texture/road.png' );
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    function drawRoadPath(ctx) {
+        ctx.moveTo(0,0);
+        ctx.lineTo(1,0);
+        ctx.lineTo(1,1);
+        ctx.lineTo(0,1);
+        ctx.lineTo(0,0);
+    }
+    shape = new THREE.Shape();
+    drawRoadPath( shape );
+    geometry = new THREE.ShapeGeometry( shape );
+    material = new THREE.MeshLambertMaterial( { side: THREE.DoubleSide, map: texture, transparent: true } );
+    mesh = new THREE.Mesh( geometry, material );
+    mesh.position.set( -410, 3.1, 510 );
+    mesh.rotation.set( PI / 2, -PI , PI );
+    mesh.receiveShadow = true;
+    mesh.scale.set(1024,1024,1);
     City.add( mesh );
 
     // Excute
