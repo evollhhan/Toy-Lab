@@ -39,7 +39,7 @@ function Halo(Draw) {
         canvas: stage,
         antialias: true
     });
-    renderer.setClearColor( 0xfcfcfc );
+    renderer.setClearColor( 0x666666 );
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
@@ -115,7 +115,7 @@ function Halo(Draw) {
 
     function renderAnimate() {
         cameraControls.update();
-        groundMirror.renderWithMirror( verticalMirror );
+        // groundMirror.renderWithMirror( verticalMirror );
         // verticalMirror.renderWithMirror( groundMirror );
         // var timer = Date.now() * 0.0001;
 		// camera.position.x = Math.cos( timer ) * 200;
@@ -147,6 +147,16 @@ function Halo(Draw) {
             window.core = new Core(scene, camera);
             core.Draw(DRAWDATA);
             core.Light();
+            
+            /* test module */
+            // var loader = new THREE.JSONLoader();
+            // loader.load('../model/test.js', function(geometry) {
+            //     var material = new THREE.MeshLambertMaterial( { color: 0x94bece , side: THREE.DoubleSide });
+            //     var obj = new THREE.Mesh( geometry, material);
+            //     obj.name = 'test1111111';
+            //     scene.add(obj);
+            // });
+
             animate();
         },
 
@@ -180,25 +190,16 @@ function Halo(Draw) {
                 document.querySelector('#obj_c').addEventListener('click', function(){
                     scene.children = [];
                     var d = eval('[' + document.querySelector('#obj_i').value + ',0,"test"]');
-                    console.info( d );
-                    switch( document.querySelector('#obj_s').value ) {
-                        case '1': DRAWDATA.N1.push(d);break;
-                        case '2': DRAWDATA.N2.push(d);break;
-                        case '3': DRAWDATA.N3.push(d);break;
-                        default:break;
-                    }            
+                    var s = document.querySelector('#obj_s').value;
+                    DRAWDATA[s].push(d);         
                     core.Draw(DRAWDATA);
                     core.Light();
                     console.info( DRAWDATA );
                 });
                 document.querySelector('#obj_z').addEventListener('click', function(){
                     scene.children = [];
-                    switch( document.querySelector('#obj_s').value ) {
-                        case '1': DRAWDATA.N1.pop();break;
-                        case '2': DRAWDATA.N2.pop();break;
-                        case '3': DRAWDATA.N3.pop();break;
-                        default:break;
-                    }            
+                    var s = document.querySelector('#obj_s').value;
+                    DRAWDATA[s].pop();          
                     core.Draw(DRAWDATA);
                     core.Light();   
                     console.info( DRAWDATA );                 
