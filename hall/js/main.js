@@ -83,10 +83,10 @@ function Halo(Draw) {
     scene.add( mirrorMesh )
 
     verticalMirror = new THREE.Mirror( renderer, camera, { clipBias: 0.003, textureWidth: window.innerWidth, textureHeight: window.innerHeight, color:0xebebeb } );
-    // var verticalMirrorMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 60, 60 ), verticalMirror.material );
-    // verticalMirrorMesh.add( verticalMirror );
-    // verticalMirrorMesh.position.y = 35;
-    // verticalMirrorMesh.position.z = 100;
+    var verticalMirrorMesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 60, 60 ), verticalMirror.material );
+    verticalMirrorMesh.add( verticalMirror );
+    verticalMirrorMesh.position.y = 35;
+    verticalMirrorMesh.position.z = 100;
     // scene.add( verticalMirrorMesh );
 
     /**
@@ -115,8 +115,8 @@ function Halo(Draw) {
 
     function renderAnimate() {
         cameraControls.update();
-        // groundMirror.renderWithMirror( verticalMirror );
-        // verticalMirror.renderWithMirror( groundMirror );
+        groundMirror.renderWithMirror( verticalMirror );
+        verticalMirror.renderWithMirror( groundMirror );
         // var timer = Date.now() * 0.0001;
 		// camera.position.x = Math.cos( timer ) * 200;
 		// camera.position.z = Math.sin( timer ) * 200;
