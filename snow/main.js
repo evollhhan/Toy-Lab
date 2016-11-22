@@ -1,4 +1,5 @@
-import Scene1 from './models/scene1'
+import Clock from './models/clock'
+import Scene2 from './models/scene2'
 
 let stage, scene, renderer, camera
 
@@ -19,13 +20,20 @@ function init () {
   camera.position.set(0, 0, 0)
 
   // -- Create Element
-  let s1 = new Scene1(scene)
-  s1.create()
+  let ck = new Clock(scene)
+  ck.create()
+
+  let s = new Scene2(scene)
+  s.create()
+  ck.scene1()
 
   // -- Render
   renderer = new THREE.WebGLRenderer({
     alpha: true
+    // antialias: true
   })
+  renderer.shadowMap.enabled = true
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap
   renderer.setClearColor(0x000000)
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
