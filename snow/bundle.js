@@ -50,7 +50,7 @@
 	
 	var _clock2 = _interopRequireDefault(_clock);
 	
-	var _scene = __webpack_require__(6);
+	var _scene = __webpack_require__(10);
 	
 	var _scene2 = _interopRequireDefault(_scene);
 	
@@ -181,6 +181,7 @@
 	  function addLight() {
 	    var light = new THREE.DirectionalLight(0xffffff, 0.5);
 	    light.position.set(0, 0, 100);
+	    // light.intensity = 0.2
 	    light.intensity = 1;
 	    light.castShadow = true;
 	    scene.add(light);
@@ -197,34 +198,16 @@
 	  };
 	};
 	
-	var _Math = __webpack_require__(2);
+	var _Math = __webpack_require__(11);
 	
-	var _Text = __webpack_require__(4);
+	var _Text = __webpack_require__(12);
 	
 	var _Text2 = _interopRequireDefault(_Text);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.mClock = undefined;
-	
-	var _mClock = __webpack_require__(3);
-	
-	var _mClock2 = _interopRequireDefault(_mClock);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.mClock = _mClock2.default;
-
-/***/ },
+/* 2 */,
 /* 3 */
 /***/ function(module, exports) {
 
@@ -250,39 +233,34 @@
 	};
 
 /***/ },
-/* 4 */
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
-	exports.default = function (text, opt) {
-	  // default
-	  opt = opt || {};
-	  opt.w = opt.w || 32;
-	  opt.h = opt.h || 32;
-	  opt.font = opt.font || '14px Arial';
-	  opt.color = opt.color || '#ffffff';
-	
-	  var cvs = document.createElement('canvas');
-	  cvs.width = opt.w;
-	  cvs.height = opt.h;
-	  var ctx = cvs.getContext('2d');
-	  ctx.font = opt.font;
-	  ctx.fillStyle = opt.color;
-	  ctx.textAlign = 'center';
-	  ctx.textBaseline = 'middle';
-	  ctx.fillText(text, opt.w / 2, opt.h / 2);
-	  return cvs;
+	exports.default = function (ctx) {
+	  ctx.moveTo(726.5, 0);
+	  ctx.bezierCurveTo(726.5, 0, 639.5, 114, 493.5, 175);
+	  ctx.bezierCurveTo(347.5, 236, 378, 201, 260.5, 245.5);
+	  ctx.bezierCurveTo(143, 290, 58.5, 361, 0, 433);
+	  ctx.lineTo(132.833, 612.333);
+	  ctx.bezierCurveTo(132.833, 612.333, 213.5, 425.66594, 399.5, 321.666);
+	  ctx.bezierCurveTo(399.5, 321.666, 539.5, 266.33297, 632.167, 148.999);
+	  ctx.bezierCurveTo(724.8341, 31.66502, 702.167, 37, 726.5, 0);
 	};
 
 /***/ },
-/* 5 */,
-/* 6 */
-/***/ function(module, exports) {
+/* 9 */,
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -336,8 +314,11 @@
 	      materail.transparent = true;
 	      mesh = new THREE.Mesh(geom, materail);
 	      mesh.name = 'S2_SM22';
-	      mesh.position.set(-120, 140, -405);
+	      mesh.position.set(0, 0, -405);
 	      mesh.rotation.set(0, 0, 0.2);
+	
+	      new TWEEN.Tween(mesh.position).delay(2100).to({ x: -120, y: 140 }, 1200).easing(TWEEN.Easing.Cubic.Out).start();
+	
 	      GroupScene2.add(mesh);
 	    });
 	  }
@@ -356,30 +337,98 @@
 	      mesh.scale.set(0.7, 0.7, 0.7);
 	      GroupScene2.add(mesh);
 	
-	      new TWEEN.Tween(mesh.rotation).to({ z: 0 - Math.PI / 6 }, 4000).onComplete(function () {
-	        new TWEEN.Tween(mesh.rotation).to({ z: 0 - Math.PI * 2 }, 600).start();
-	        new TWEEN.Tween(materail).delay(400).to({ opacity: 0 }, 200).start();
+	      new TWEEN.Tween(mesh.rotation).to({ z: 0 - Math.PI / 12 }, 3200).onComplete(function () {
+	        new TWEEN.Tween(mesh.rotation).to({ z: 0 - Math.PI * 3 / 2 }, 400).start();
+	        new TWEEN.Tween(materail).to({ opacity: 0 }, 400).start();
 	      }).start();
 	    });
 	  }
 	
-	  function create33Big() {
-	    loader.load(window.ResourceS1.s33, function (texture) {
+	  function create33b() {
+	    loader.load(window.ResourceS1.s33b, function (texture) {
 	      var geom = void 0,
 	          materail = void 0,
 	          mesh = void 0;
-	      geom = new THREE.PlaneGeometry(128, 256);
+	      geom = new THREE.PlaneGeometry(232, 232);
 	      materail = new THREE.MeshLambertMaterial({ map: texture });
 	      materail.transparent = true;
+	      materail.opacity = 0;
 	      mesh = new THREE.Mesh(geom, materail);
-	      mesh.name = 'S2_SM33';
+	      mesh.name = 'S2_SM33B';
 	      mesh.position.set(5, -5, -395);
 	      mesh.scale.set(0.7, 0.7, 0.7);
+	      mesh.rotation.set(0, 0, 0);
 	      GroupScene2.add(mesh);
 	
-	      new TWEEN.Tween(mesh.rotation).to({ z: 0 - Math.PI / 6 }, 4000).onComplete(function () {
-	        new TWEEN.Tween(mesh.rotation).to({ z: 0 - Math.PI * 2 }, 600).start();
+	      new TWEEN.Tween(materail).delay(3600).to({ opacity: 1 }, 200).start();
+	
+	      new TWEEN.Tween(mesh.rotation).delay(3600).to({ z: 0 - Math.PI / 2 }, 16000).start();
+	    });
+	  }
+	
+	  var twistMesh = [];
+	  function createTwistArc() {
+	    var shape = new THREE.Shape();
+	    (0, _Shape.twistArc)(shape);
+	    var materail = new THREE.MeshLambertMaterial({ color: 0xffffff });
+	    materail.transparent = true;
+	    var geom = new THREE.ShapeGeometry(shape);
+	    geom.applyMatrix(new THREE.Matrix4().makeTranslation(-726.5, 0, 0));
+	    var mesh = new THREE.Mesh(geom, materail);
+	    mesh.position.set(0, 0, -405);
+	    mesh.visible = false;
+	
+	    for (var i = 0; i < 12; i++) {
+	      var cloneMesh = mesh.clone();
+	      twistMesh.push(cloneMesh);
+	      GroupScene2.add(cloneMesh);
+	    }
+	  }
+	
+	  function animateTwistMesh() {
+	    twistMesh.forEach(function (m, i) {
+	      m.visible = true;
+	      new TWEEN.Tween(m.rotation).to({ z: 0 - Math.PI / 12 * i }, 2000).start();
+	    });
+	  }
+	
+	  function createMerry() {
+	    loader.load(window.ResourceS1.merry, function (texture) {
+	      var geom = new THREE.PlaneGeometry(256, 64);
+	      var materail = new THREE.MeshLambertMaterial({ map: texture });
+	      materail.transparent = true;
+	      materail.opacity = 0;
+	      var mesh = new THREE.Mesh(geom, materail);
+	      mesh.position.set(65, 200, -390);
+	      mesh.rotation.set(0, 0, -0.26);
+	      mesh.name = 'S2_Merry';
+	
+	      new TWEEN.Tween(materail).to({ opacity: 1 }, 1200).start();
+	
+	      new TWEEN.Tween(mesh.position).to({ x: 58, y: 180, z: -405 }, 1200).easing(TWEEN.Easing.Cubic.Out).start();
+	
+	      GroupScene2.add(mesh);
+	    });
+	  }
+	
+	  function createSnow() {
+	    loader.load(window.Resource.snow, function (texture) {
+	      var geom = new THREE.PlaneGeometry(32, 32);
+	      var materail = new THREE.MeshBasicMaterial({
+	        map: texture,
+	        side: THREE.DoubleSide
+	      });
+	      materail.transparent = true;
+	      var mesh = new THREE.Mesh(geom, materail);
+	      mesh.position.set(100, 0, 40);
+	
+	      new TWEEN.Tween(mesh.position).to({ x: -180, y: 140, z: -395 }, 3200).onComplete(function () {
+	        new TWEEN.Tween(materail).delay(200).to({ opacity: 0 }, 200).start();
 	      }).start();
+	
+	      new TWEEN.Tween(mesh.rotation).to({ x: Math.PI * 2, y: Math.PI * 2 }, 3200).start();
+	
+	      GroupScene2.add(mesh);
 	    });
 	  }
 	
@@ -389,10 +438,84 @@
 	      createBackgroundMask();
 	      create22();
 	      create33();
+	      create33b();
+	      createMerry();
+	      createSnow();
+	      createTwistArc();
 	      scene.add(GroupScene2);
 	    }
 	  };
 	};
+	
+	var _Shape = __webpack_require__(13);
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.mClock = undefined;
+	
+	var _mClock = __webpack_require__(3);
+	
+	var _mClock2 = _interopRequireDefault(_mClock);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.mClock = _mClock2.default;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (text, opt) {
+	  // default
+	  opt = opt || {};
+	  opt.w = opt.w || 32;
+	  opt.h = opt.h || 32;
+	  opt.font = opt.font || '14px Arial';
+	  opt.color = opt.color || '#ffffff';
+	
+	  var cvs = document.createElement('canvas');
+	  cvs.width = opt.w;
+	  cvs.height = opt.h;
+	  var ctx = cvs.getContext('2d');
+	  ctx.font = opt.font;
+	  ctx.fillStyle = opt.color;
+	  ctx.textAlign = 'center';
+	  ctx.textBaseline = 'middle';
+	  ctx.fillText(text, opt.w / 2, opt.h / 2);
+	  return cvs;
+	};
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.twistArc = undefined;
+	
+	var _twistArc = __webpack_require__(8);
+	
+	var _twistArc2 = _interopRequireDefault(_twistArc);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.twistArc = _twistArc2.default;
 
 /***/ }
 /******/ ]);

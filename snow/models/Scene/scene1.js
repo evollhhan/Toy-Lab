@@ -1,4 +1,4 @@
-import { mClock } from './Math'
+import { mClock } from '../Math'
 
 export default function ($scene) {
   let scene = $scene

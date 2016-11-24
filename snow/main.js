@@ -1,5 +1,5 @@
 import Clock from './models/clock'
-import Scene2 from './models/scene2'
+import Scene from './models/Scene/scene2'
 
 let stage, scene, renderer, camera
 
@@ -23,7 +23,7 @@ function init () {
   let ck = new Clock(scene)
   ck.create()
 
-  let s = new Scene2(scene)
+  let s = new Scene(scene)
   s.create()
   ck.scene1()
 

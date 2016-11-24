@@ -8,5 +8,7 @@ window.Resource = {
 window.ResourceS1 = {
   s22: './images/s2_22.png',
   s33: './images/s2_33.png',
-  sBgMask: './images/s2_bg_mask.png'
+  s33b: './images/s2_33_b.png',
+  sBgMask: './images/s2_bg_mask.png',
+  merry: './images/s2_merry.png'
 }
