@@ -56,7 +56,7 @@ export default function ($scene) {
             // dev
             if (no === 12) {
               setTimeout(() => {
-                moveOutSnow()
+                // moveOutSnow()
               }, 2000)
             }
           })

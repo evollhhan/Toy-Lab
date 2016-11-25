@@ -1,5 +1,5 @@
 import Clock from './models/clock'
-import Scene from './models/Scene/scene2'
+import Scene from './models/Scene/scene1'
 
 let stage, scene, renderer, camera
 
@@ -25,7 +25,7 @@ function init () {
 
   let s = new Scene(scene)
   s.create()
-  ck.scene1()
+  // ck.scene1()
 
   // -- Render
   renderer = new THREE.WebGLRenderer({

@@ -57,8 +57,8 @@ export default function ($scene) {
   function addLight () {
     let light = new THREE.DirectionalLight(0xffffff, 0.5)
     light.position.set(0, 0, 100)
-    // light.intensity = 0.2
-    light.intensity = 1
+    light.intensity = 0.2
+    // light.intensity = 1
     light.castShadow = true
     scene.add(light)
   }
