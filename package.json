@@ -1,0 +1,15 @@
+{
+  "name": "toy-lab",
+  "version": "1.0.0",
+  "description": "choose branch to view more projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evollhhan/playground/issues"
+  },
+  "homepage": "https://github.com/evollhhan/playground#readme"
+}
